@@ -16,29 +16,32 @@ function App() {
   const [newTool, setNewTool] = useState('');
   const [toolKitLi, setToolKitLi] = useState(toolKit);
 
-  function handleCarrousselNext() {
+  function handleCarrousselNext(): void {
     carrousselIndex + 1 < toolKitLi.length ?
       setCarrousselIndex(carrousselIndex + 1) : setCarrousselIndex(0)
   }
 
-  function handleCarrousselPrevious() {
+  function handleCarrousselPrevious(): void {
     carrousselIndex - 1 < 0 ?
       setCarrousselIndex(toolKitLi.length - 1) : setCarrousselIndex(carrousselIndex - 1)
   }
 
+  function handleAddNewToolKit(): void {
+    newTool ? setToolKitLi([...toolKitLi, newTool]) : undefined
+  }
 
   return (
     <>
       <h1>Caixa de ferramentas de uma Pessoa Desenvolvedora</h1>
-      <h2>{toolKit[carrousselIndex]}</h2>
+      <h2>{toolKitLi[carrousselIndex]}</h2>
       <div className='btn-container'>
         <button onClick={handleCarrousselPrevious}>Anterior</button>
         <button onClick={handleCarrousselNext}>Próximo</button>
       </div>
       <section>
         <h3>Adicione novas ferramentas:</h3>
-        <input type='text' />
-        <button>Adicionar</button>
+        <input onChange={({ target }) => setNewTool(target.value)} type='text' />
+        <button onClick={handleAddNewToolKit}>Adicionar</button>
       </section>
       <section>
         <h3>Lista de intens do carrossel:</h3>
